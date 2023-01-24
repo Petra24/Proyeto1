@@ -1,9 +1,12 @@
 import React from "react";
+import { FaShoppingCart } from "react-icons/fa";
+import { Badge } from "@chakra-ui/react";
 
 const CartWidget = () => {
   return (
     <>
-      <span className="material-symbols-outlined">shopping_cart</span>
+      <FaShoppingCart style={{ fontSize: "35px" }} />
+      <Badge borderRadius="5"pos="absolute" right="1" top="12">8</Badge>
     </>
   );
 };
