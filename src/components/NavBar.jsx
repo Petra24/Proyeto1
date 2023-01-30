@@ -6,7 +6,7 @@ import CartWidget from "./CartWidget";
 const NavBar = () => {
   return (
     <>
-      <Container maxW="100rem" bg="blue.100" color="#262626">
+      <Container maxW="100%" bg="blue.100" color="#262626">
         <Flex minWidth="max-content" alignItems="center" gap="2">
           <Box p="2">
             <Heading mb={4}>

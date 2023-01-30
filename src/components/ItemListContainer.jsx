@@ -12,10 +12,26 @@ import {
   Image,
   Flex,
   Box,
-  Spacer
+  Spacer,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
 } from "@chakra-ui/react";
+import Counter from "./counter";
 
-function ItemListContainer() {
+const ItemListContainer= () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const foto1 =
+    "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80";
+  const foto2 =
+    "https://tumueble.com.mx/wp-content/uploads/2021/07/muebles-para-oficina.jpg";
+  const foto3 =
+    "https://media.istockphoto.com/id/1329937916/es/foto/interior-del-comedor-dom%C3%A9stico-escandinavo.jpg?b=1&s=170667a&w=0&k=20&c=O4uAYX7vxXniFKjtFg5r_qNZ99YqoA2qJqSflQvq65I=";
   return (
     <>
       <Heading textAlign={"center"}>Ofertas</Heading>
@@ -25,7 +41,7 @@ function ItemListContainer() {
           <Card maxW="sm">
             <CardBody>
               <Image
-                src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
+                src={foto1}
                 alt="Green double couch with wooden legs"
                 borderRadius="lg"
               />
@@ -45,7 +61,12 @@ function ItemListContainer() {
             <Divider />
             <CardFooter>
               <ButtonGroup spacing="2">
-                <Button variant="solid" colorScheme="blue">
+                <Button
+                  variant="solid"
+                  colorScheme="blue"
+                  onClick={(onOpen)}
+                  key="b1"
+                >
                   Comprar Ahora
                 </Button>
                 <Button variant="ghost" colorScheme="blue">
@@ -59,7 +80,7 @@ function ItemListContainer() {
           <Card maxW="sm">
             <CardBody>
               <Image
-                src="https://tumueble.com.mx/wp-content/uploads/2021/07/muebles-para-oficina.jpg"
+                src={foto2}
                 alt="Green double couch with wooden legs"
                 borderRadius="lg"
               />
@@ -93,7 +114,7 @@ function ItemListContainer() {
           <Card maxW="sm">
             <CardBody>
               <Image
-                src="https://media.istockphoto.com/id/1329937916/es/foto/interior-del-comedor-dom%C3%A9stico-escandinavo.jpg?b=1&s=170667a&w=0&k=20&c=O4uAYX7vxXniFKjtFg5r_qNZ99YqoA2qJqSflQvq65I="
+                src={foto3}
                 alt="Green double couch with wooden legs"
                 borderRadius="lg"
               />
@@ -126,6 +147,24 @@ function ItemListContainer() {
         </Box>
         <Spacer />
       </Flex>
+
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Compra</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Counter foto={foto1}/>
+          </ModalBody>
+
+          <ModalFooter>
+            <Button colorScheme="blue" mr={3} onClick={onClose}>
+              Close
+            </Button>
+            <Button variant="ghost">Secondary Action</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </>
   );
 }

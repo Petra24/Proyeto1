@@ -1,10 +1,8 @@
-import React from 'react'
-import { Heading } from '@chakra-ui/react'
+import React from "react";
+import { Heading } from "@chakra-ui/react";
 
-function Oferts2() {
-  return (
-    <Heading textAlign={'center'}>Mega Ofertas</Heading>
-  )
-}
+const Oferts2 = () => {
+  return <Heading textAlign={"center"}>Mega Ofertas</Heading>;
+};
 
-export default Oferts2
+export default Oferts2;
