@@ -4,16 +4,18 @@ import { Route, Routes } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import Oferts1 from "./components/Oferts1";
 import Oferts2 from "./components/Oferts2";
+import Item from "./components/Item";
 
 function App() {
   return (
     <>
       <NavBar />
       <Routes>
-        <Route path="/" element={<Home greeting="Principal"/>} />
+        <Route path="/" element={<Home greeting="Principal" />} />
         <Route path="/ItemListContainer" element={<ItemListContainer />} />
         <Route path="/Oferts1" element={<Oferts1 />} />
         <Route path="/Oferts2" element={<Oferts2 />} />
+       {/*  <Route path="/ItemListContainer/Item" element={<Item />} /> */}
         <Route render={() => <h1>Not found!</h1>} />
       </Routes>
     </>

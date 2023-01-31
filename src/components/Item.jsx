@@ -1,22 +1,8 @@
 import React from "react";
 import { IconButton, Box, Image, Flex, Spacer, Badge } from "@chakra-ui/react";
 import { AddIcon, StarIcon } from "@chakra-ui/icons";
-import { useState } from "react";
 
-const Counter= ({foto}) => {
-  const [sumar, setSumar] = useState(0);
-
-  const property = {
-    imageUrl: 'https://bit.ly/2Z4KKcF',
-    imageAlt: 'Rear view of modern home with pool',
-    beds: 3,
-    baths: 2,
-    title: 'Modern home in city center in the heart of historic Los Angeles',
-    formattedPrice: '$1,900.00',
-    reviewCount: 34,
-    rating: 4,
-  }
-
+const Item = () => {
   return (
     <>
     <Box maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden'>
@@ -71,38 +57,8 @@ const Counter= ({foto}) => {
         </Box>
       </Box>
     </Box>
-      {/* <Flex minWidth="max-content" alignItems="center">
-        <Box>
-          <Image
-            borderRadius="full"
-            boxSize="150px"
-            src={foto}
-            alt="Dan Abramov"
-          />
-        </Box>
-        <Spacer />
-        <Box><h1>Sofa para Sala</h1></Box>
-      </Flex>
-      <IconButton
-        colorScheme="blue"
-        aria-label="Search database"
-        icon={<AddIcon />}
-        disabled={sumar === 0}
-        onClick={() => setSumar(sumar - 1)}
-      ></IconButton>
-      <Box borderRadius="md" bg="tomato" color="white" px={4} h={8}>
-        {sumar}
-      </Box>
-      <IconButton
-        colorScheme="blue"
-        aria-label="Search database"
-        icon={<AddIcon />}
-        disabled={sumar === 0}
-        onClick={() => setSumar(sumar + 1)}
-      ></IconButton> */}
-      {/* <IconButton onClick={() => setSumar(0)}>Reset</IconButton> */}
     </>
-  );
+  )
 }
 
-export default Counter;
+export default Item

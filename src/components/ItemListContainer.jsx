@@ -13,160 +13,115 @@ import {
   Flex,
   Box,
   Spacer,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  useDisclosure,
+  SimpleGrid,
+  Table,
+  Thead,
+  Tbody,
+  Tfoot,
+  Tr,
+  Th,
+  Td,
+  TableCaption,
+  TableContainer,
+  //useDisclosure,
 } from "@chakra-ui/react";
-import Counter from "./counter";
+import { Link } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
+//import Modals from "../others/Modals"
+import { NumericFormat } from "react-number-format";
 
-const ItemListContainer= () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const foto1 =
-    "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80";
-  const foto2 =
-    "https://tumueble.com.mx/wp-content/uploads/2021/07/muebles-para-oficina.jpg";
-  const foto3 =
-    "https://media.istockphoto.com/id/1329937916/es/foto/interior-del-comedor-dom%C3%A9stico-escandinavo.jpg?b=1&s=170667a&w=0&k=20&c=O4uAYX7vxXniFKjtFg5r_qNZ99YqoA2qJqSflQvq65I=";
+const ItemListContainer = ({ match }) => {
+  //const { isOpen, onToggle, onClose } = useDisclosure();
+  const productos = [
+    {
+      id: 1,
+      img: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
+      head: "Sofa para Sala",
+      desc: "Logra un ambiente elegante y relajado con el sofá Dovve, una pieza atemporal que combina con cualquier tendencia, está fabricado en madera de pino y tapizado en tela microfibra en color gris oxford. Decora como siempre has deseado.",
+      stock: 50,
+      cost: 1500,
+    },
+    {
+      id: 2,
+      img: "https://tumueble.com.mx/wp-content/uploads/2021/07/muebles-para-oficina.jpg",
+      head: "Escritorio",
+      desc: "Escritorio ideal para el hogar o la oficina hecho de melanina de alta calidad, con diseño moderno y elegante, es perfecto para claptop o computadora de escritotio, asi como componentes para acomodo de papeleria varia, con gran espacio.",
+      stock: 30,
+      cost: 1250,
+    },
+    {
+      id: 3,
+      img: "https://media.istockphoto.com/id/1329937916/es/foto/interior-del-comedor-dom%C3%A9stico-escandinavo.jpg?b=1&s=170667a&w=0&k=20&c=O4uAYX7vxXniFKjtFg5r_qNZ99YqoA2qJqSflQvq65I=",
+      head: "Comedor",
+      desc: "Este comedor de estilo contemporáneo, está fabricado con cubierta de madera industrial y acabado fino, ideal para una familia de seis personas con asientos tapizados en vinil, muy bien acojinados con hule espuma, va perfecto con la decoración moderna de tu hogar.",
+      stock: 70,
+      cost: 4500,
+    },
+  ];
+
+  const producto = new Promise((resolve, reject) => {
+    if (productos.length > 0) {
+      setTimeout(() => {
+        resolve(productos);
+      }, 3000);
+    } else {
+      reject("No hay productos");
+    }
+  });
+
+  producto
+    .then((resultado) => {
+      console.log(resultado);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
   return (
     <>
       <Heading textAlign={"center"}>Ofertas</Heading>
-      <Flex>
-        <Spacer />
-        <Box p="4">
-          <Card maxW="sm">
-            <CardBody>
-              <Image
-                src={foto1}
-                alt="Green double couch with wooden legs"
-                borderRadius="lg"
-              />
-              <Stack mt="6" spacing="3">
-                <Heading size="md">Sofa para Sala</Heading>
-                <Text textAlign={["justify"]}>
-                  Logra un ambiente elegante y relajado con el sofá Dovve, una
-                  pieza atemporal que combina con cualquier tendencia, está
-                  fabricado en madera de pino y tapizado en tela microfibra en
-                  color gris oxford. Decora como siempre has deseado.
-                </Text>
-                <Text color="blue.600" fontSize="2xl">
-                  $1,500
-                </Text>
-              </Stack>
-            </CardBody>
-            <Divider />
-            <CardFooter>
-              <ButtonGroup spacing="2">
-                <Button
-                  variant="solid"
-                  colorScheme="blue"
-                  onClick={(onOpen)}
-                  key="b1"
-                >
-                  Comprar Ahora
-                </Button>
-                <Button variant="ghost" colorScheme="blue">
-                  Agregar al Carrito
-                </Button>
-              </ButtonGroup>
-            </CardFooter>
-          </Card>
-        </Box>
-        <Box p="4">
-          <Card maxW="sm">
-            <CardBody>
-              <Image
-                src={foto2}
-                alt="Green double couch with wooden legs"
-                borderRadius="lg"
-              />
-              <Stack mt="6" spacing="3">
-                <Heading size="md">Escritorio</Heading>
-                <Text textAlign={["justify"]}>
-                  Escritorio ideal para el hogar o la oficina hecho de melanina
-                  de alta calidad, con diseño moderno y elegante, es perfecto
-                  para claptop o computadora de escritotio, asi como componentes
-                  para acomodo de papeleria varia, con gran espacio.
-                </Text>
-                <Text color="blue.600" fontSize="2xl">
-                  $1,250
-                </Text>
-              </Stack>
-            </CardBody>
-            <Divider />
-            <CardFooter>
-              <ButtonGroup spacing="2">
-                <Button variant="solid" colorScheme="blue">
-                  Comprar Ahora
-                </Button>
-                <Button variant="ghost" colorScheme="blue">
-                  Agregar al Carrito
-                </Button>
-              </ButtonGroup>
-            </CardFooter>
-          </Card>
-        </Box>
-        <Box p="4">
-          <Card maxW="sm">
-            <CardBody>
-              <Image
-                src={foto3}
-                alt="Green double couch with wooden legs"
-                borderRadius="lg"
-              />
-              <Stack mt="6" spacing="3">
-                <Heading size="md">Comedor</Heading>
-                <Text textAlign={["justify"]}>
-                  Este comedor de estilo contemporáneo, está fabricado con
-                  cubierta de madera industrial y acabado fino, ideal para una
-                  familia de seis personas con asientos tapizados en vinil, muy
-                  bien acojinados con hule espuma, va perfecto con la decoración
-                  moderna de tu hogar.
-                </Text>
-                <Text color="blue.600" fontSize="2xl">
-                  $4,500
-                </Text>
-              </Stack>
-            </CardBody>
-            <Divider />
-            <CardFooter>
-              <ButtonGroup spacing="2">
-                <Button variant="solid" colorScheme="blue">
-                  Comprar Ahora
-                </Button>
-                <Button variant="ghost" colorScheme="blue">
-                  Agregar al Carrito
-                </Button>
-              </ButtonGroup>
-            </CardFooter>
-          </Card>
-        </Box>
-        <Spacer />
-      </Flex>
-
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Compra</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <Counter foto={foto1}/>
-          </ModalBody>
-
-          <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={onClose}>
-              Close
-            </Button>
-            <Button variant="ghost">Secondary Action</Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+      {productos.map((item) => {
+        return (
+          <SimpleGrid columns={3} spacing={50}>
+            <Box p="4">
+              <Card maxW="sm" key={item.id}>
+                <CardBody>
+                  <Image
+                    src={item.img}
+                    alt="Green double couch with wooden legs"
+                    borderRadius="lg"
+                  />
+                  <Stack mt="6" spacing="3">
+                    <Heading size="md">{item.head}</Heading>
+                    <Text textAlign={["justify"]}>{item.desc}</Text>
+                    <NumericFormat
+                      value={item.cost}
+                      allowLeadingZeros
+                      thousandSeparator=","
+                      prefix={"$"}
+                    />
+                  </Stack>
+                </CardBody>
+                <Divider />
+                <CardFooter>
+                  <ButtonGroup spacing="2">
+                    <Button variant="solid" colorScheme="blue">
+                      {/* onClick={onToggle} */}
+                      Comprar Ahora
+                    </Button>
+                    <Button variant="ghost" colorScheme="blue">
+                      Agregar al Carrito
+                    </Button>
+                  </ButtonGroup>
+                </CardFooter>
+              </Card>
+            </Box>
+          </SimpleGrid>
+        );
+      })}
+      {/* <Modals isOpen={isOpen} onClose={onClose} /> */}
     </>
   );
-}
+};
 
 export default ItemListContainer;
