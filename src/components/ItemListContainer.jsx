@@ -29,6 +29,7 @@ import { Link } from "react-router-dom";
 import { Route, Routes } from "react-router-dom";
 //import Modals from "../others/Modals"
 import { NumericFormat } from "react-number-format";
+import Item from "./Item";
 
 const ItemListContainer = ({ match }) => {
   //const { isOpen, onToggle, onClose } = useDisclosure();
@@ -80,45 +81,51 @@ const ItemListContainer = ({ match }) => {
   return (
     <>
       <Heading textAlign={"center"}>Ofertas</Heading>
-      {productos.map((item) => {
-        return (
-          <SimpleGrid columns={3} spacing={50}>
-            <Box p="4">
-              <Card maxW="sm" key={item.id}>
-                <CardBody>
-                  <Image
-                    src={item.img}
-                    alt="Green double couch with wooden legs"
-                    borderRadius="lg"
-                  />
-                  <Stack mt="6" spacing="3">
-                    <Heading size="md">{item.head}</Heading>
-                    <Text textAlign={["justify"]}>{item.desc}</Text>
-                    <NumericFormat
-                      value={item.cost}
-                      allowLeadingZeros
-                      thousandSeparator=","
-                      prefix={"$"}
+      <Flex>
+        {productos.map((item) => {
+          return (
+            <Stack spacing={5} direction="row" key={item.id}>
+              <Spacer />
+              <Box p="3">
+                <Card maxW="sm">
+                  <CardBody>
+                    <Image
+                      src={item.img}
+                      alt="Green double couch with wooden legs"
+                      borderRadius="lg"
                     />
-                  </Stack>
-                </CardBody>
-                <Divider />
-                <CardFooter>
-                  <ButtonGroup spacing="2">
-                    <Button variant="solid" colorScheme="blue">
-                      {/* onClick={onToggle} */}
-                      Comprar Ahora
-                    </Button>
-                    <Button variant="ghost" colorScheme="blue">
-                      Agregar al Carrito
-                    </Button>
-                  </ButtonGroup>
-                </CardFooter>
-              </Card>
-            </Box>
-          </SimpleGrid>
-        );
-      })}
+                    <Stack mt="6" spacing="3">
+                      <Heading size="md">{item.head}</Heading>
+                      <Text textAlign={["justify"]}>{item.desc}</Text>
+                      <NumericFormat
+                        value={item.cost}
+                        allowLeadingZeros
+                        thousandSeparator=","
+                        prefix={"$"}
+                      />
+                    </Stack>
+                  </CardBody>
+                  <Divider />
+                  <CardFooter>
+                    <ButtonGroup spacing="2">
+                      <Link to='/ItemListContainer/Item'>
+                        <Button variant="solid" colorScheme="blue">
+                          {/* onClick={onToggle} */}
+                          Comprar Ahora
+                        </Button>
+                      </Link>
+                      <Button variant="ghost" colorScheme="blue">
+                        Agregar al Carrito
+                      </Button>
+                    </ButtonGroup>
+                  </CardFooter>
+                </Card>
+              </Box>
+              <Spacer />
+            </Stack>
+          );
+        })}
+      </Flex>
       {/* <Modals isOpen={isOpen} onClose={onClose} /> */}
     </>
   );

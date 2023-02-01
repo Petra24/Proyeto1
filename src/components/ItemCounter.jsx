@@ -1,5 +1,5 @@
 import React from "react";
-import { Box } from "@chakra-ui/react";
+import { Box, Button } from "@chakra-ui/react";
 import { useState } from "react";
 
 const ItemCounter = () => {
@@ -7,11 +7,11 @@ const ItemCounter = () => {
 
   return (
     <>
-      <Button onClick={() => setValue(value + 1)}>+</Button>
+      <Button onClick={() => setValue(value - 1)}>-</Button>
       <Box as="span" w="200px" mx="24px">
         {value}
       </Box>
-      <Button onClick={() => setValue(value - 1)}>-</Button>
+      <Button onClick={() => setValue(value + 1)}>+</Button>
       {/* <IconButton onClick={() => setSumar(0)}>Reset</IconButton> */}
     </>
   );

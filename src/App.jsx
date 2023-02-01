@@ -15,7 +15,7 @@ function App() {
         <Route path="/ItemListContainer" element={<ItemListContainer />} />
         <Route path="/Oferts1" element={<Oferts1 />} />
         <Route path="/Oferts2" element={<Oferts2 />} />
-       {/*  <Route path="/ItemListContainer/Item" element={<Item />} /> */}
+        <Route path="/ItemListContainer/Item" element={<Item />} />
         <Route render={() => <h1>Not found!</h1>} />
       </Routes>
     </>
