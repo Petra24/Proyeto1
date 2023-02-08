@@ -21,7 +21,6 @@ import {
   ModalBody,
   ModalCloseButton,
 } from "@chakra-ui/react";
-import ItemCounter from "./ItemCounter";
 
 const Modals = ({ isOpen, onClose }) => {
   return (
@@ -32,7 +31,7 @@ const Modals = ({ isOpen, onClose }) => {
           <ModalHeader>Comprar</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <ItemCounter />
+            {/* <ItemCounter /> */}
           </ModalBody>
           <ModalFooter>
             <Button colorScheme="blue" mr={3} onClick={onClose}>

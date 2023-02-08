@@ -1,9 +1,9 @@
 import React from 'react'
 import { Heading } from '@chakra-ui/react'
 
-const Oferts1 = () => {
+const Oferts1 = ({ greeting }) => {
   return (
-    <Heading textAlign={'center'}>Super Ofertas</Heading>
+    <Heading textAlign={"center"}>{greeting}</Heading>
   )
 }
 

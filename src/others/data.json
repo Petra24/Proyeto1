@@ -1,0 +1,101 @@
+[
+  {
+    "id": 1,
+    "img": "https://www.coppel.com/images/catalog/pm/4092963-1.jpg",
+    "head": "Sala esquinera San Telmo (2 Pzas)",
+    "desc": "Convierte en un espacio de confort y descanso esta sala esquinera San Telmo. ¡Te dará la bienvenida cada día al llegar a casa! Su estructura está fabricada en madera de pino y tapizada en linato color gris. Cuenta con cojines en respaldo y asientos. Además, por su diseño contemporáneo, te permite optimizar al máximo el espacio disponible. Sus patas frontales de madera torneadas ofrecen balance y resistencia. Es ideal para pasar un rato agradable con la familia o recibir visitas, así que agrégala a tu carrito de compras. *Los abonos quincenales, el plazo del crédito y el pago inicial, pueden variar según el margen de crédito y el historial de pago de cada cliente.",
+    "stock": 20,
+    "cost": 10500,
+    "category": "Sala"
+  },
+  {
+    "id": 2,
+    "img": "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
+    "head": "Sofa (1 Pza)",
+    "desc": "Logra un ambiente elegante y relajado con el sofá Dovve, una pieza atemporal que combina con cualquier tendencia, está fabricado en madera de pino y tapizado en tela microfibra en color gris oxford. Decora como siempre has deseado.",
+    "stock": 50,
+    "cost": 1500,
+    "category": "Sala"
+  },
+  {
+    "id": 3,
+    "img": "https://tumueble.com.mx/wp-content/uploads/2021/07/muebles-para-oficina.jpg",
+    "head": "Escritorio",
+    "desc": "Escritorio ideal para el hogar o la oficina hecho de melanina de alta calidad, con diseño moderno y elegante, es perfecto para laptop o computadora de escritotio, asi como componentes para acomodo de papeleria varia, con gran espacio.",
+    "stock": 30,
+    "cost": 1250,
+    "category": "Oficina"
+  },
+  {
+    "id": 4,
+    "img": "https://www.gaiadesign.com.mx/media/catalog/product/cache/28cb47c806b746a91bc25b380c9673fa/e/s/escritorio_vallarta_negro_still1_v2.jpg",
+    "head": "Escritorio Vallarta, solo mesa",
+    "desc": "Escritorio ideal para el hogar con diseño moderno y elegante, es perfecto para laptop y papeleria varia, con gran espacio.",
+    "stock": 10,
+    "cost": 850,
+    "category": "Oficina"
+  },
+  {
+    "id": 5,
+    "img": "https://m.media-amazon.com/images/I/81QwJ7UBqwL._AC_SX522_.jpg",
+    "head": "Silla ergonomica",
+    "desc": "Anchura 40 cm x Profundidad 50.5cm x Altura 75-87 cm. Estilo contemporáneo y espíritu joven, adopte esta silla a tono vivo que lo transmitirá frescura, su color vidente desplegará toda su energía para tener éxito en sus proyectos Expediente de plástico PP y la sentada en revestimiento de malla, usted obtendrá una comodidad super del diseño ergonómico. La estabilidad tanto como la movilidad son garantizadas por los pies de metal sobre ruletas pivotantes, y para usted, será la eficacia ganada. En altura ajustable, esta silla satisfará sus necesidades perfectamente y evitará que se canse del trabajo durante mucho tiempo.",
+    "stock": 60,
+    "cost": 250,
+    "category": "Oficina"
+  },
+  {
+    "id": 6,
+    "img": "https://media.istockphoto.com/id/1329937916/es/foto/interior-del-comedor-dom%C3%A9stico-escandinavo.jpg?b=1&s=170667a&w=0&k=20&c=O4uAYX7vxXniFKjtFg5r_qNZ99YqoA2qJqSflQvq65I=",
+    "head": "Comedor de Madera (6 Pers)",
+    "desc": "Este comedor de estilo contemporáneo, está fabricado con cubierta de madera industrial y acabado fino, ideal para una familia de seis personas con asientos tapizados en vinil, muy bien acojinados con hule espuma, va perfecto con la decoración moderna de tu hogar.",
+    "stock": 70,
+    "cost": 4500,
+    "category": "Comedor"
+  },
+  {
+    "id": 7,
+    "img": "https://muegal.com/44-thickbox_default/comedor-dubay-4-sillas.jpg",
+    "head": "Comedor básico (4 Pers)",
+    "desc": "Este comedor de estilo contemporáneo, está fabricado con cubierta de madera industrial y acabado fino, ideal para una familia de seis personas con asientos tapizados en vinil, muy bien acojinados con hule espuma, va perfecto con la decoración moderna de tu hogar.",
+    "stock": 70,
+    "cost": 4500,
+    "category": "Comedor"
+  },
+  {
+    "id": 8,
+    "img": "https://mueblesmaderaviva.com/432-thickbox_default/comedor-valencia.jpg",
+    "head": "Modelo Valencia (4 Pers)",
+    "desc": "Este comedor de estilo contemporáneo, está fabricado con cubierta de madera industrial y acabado fino, ideal para una familia de seis personas con asientos tapizados en vinil, muy bien acojinados con hule espuma, va perfecto con la decoración moderna de tu hogar.",
+    "stock": 70,
+    "cost": 4500,
+    "category": "Comedor"
+  },
+  {
+    "id": 9,
+    "img": "https://m.media-amazon.com/images/I/71Vl8RSbxrL._AC_SX679_.jpg",
+    "head": "Estatntería para especias 3 niveles",
+    "desc": "Organizador especias encimera independiente de 2 niveles para asegurar que se adapte a la mayoría de las especias, frascos, latas, botes, etc. Además, el diseño de gancho le permite mantener utensilios, cuchara y otros artículos esenciales en un solo lugar. Este estante de especias puede sentarse justo al lado de la estufa y hacer que encontrar el condimento adecuado sea mucho más fácil.",
+    "stock": 250,
+    "cost": 720,
+    "category": "Cocina"
+  },
+  {
+    "id": 10,
+    "img": "https://m.media-amazon.com/images/I/717eQrqkraL._AC_SX522_.jpg",
+    "head": "Fregadero de cascada, grifo extraible",
+    "desc": "Fregadero Nano, juego de drenaje de control de contador, grifo extraíble de lluvia Flying, lavabo Nano en lavabo, tabla de cortar, cesta de drenaje triangular, grifo de purificación de agua, lavadora de taza de refuerzo, válvula de ángulo caliente y fría, tubo de entrada de agua caliente y fría.",
+    "stock": 70,
+    "cost": 3000,
+    "category": "Cocina"
+  },
+  {
+    "id": 11,
+    "img": "https://http2.mlstatic.com/D_NQ_NP_939409-MLM46109845324_052021-O.webp",
+    "head": "Cocina integral 1.80mts",
+    "desc": "Nuestros productos no entran dentro de la categoria de envio gratis por ello debe consultar el precio del envío con su código postal en la sección de preguntas antes de realizar la compra. Principalmente entregamos en CDMX , el Estado de México, Tizayuca y Pachuca Hidalgo favor de cotizar envío. NO CONTAMOS CON ENTREGAS EN OTROS ESTADOS DE LA REPÚBLICA (aunque podemos cotizar en alguna fletera con su c.p., el producto viaja bajo la responsabilidad del comprador ya que las transportadoras no cubren los daños que se puedan ocasionar)",
+    "stock": 5,
+    "cost": 8950,
+    "category": "Cocina"
+  }
+]

@@ -2,6 +2,7 @@ import { Container, Box, Flex, Spacer, Heading } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from "@chakra-ui/react";
 import CartWidget from "./CartWidget";
+import Modals from "../others/Modals";
 
 const NavBar = () => {
   return (
@@ -21,11 +22,11 @@ const NavBar = () => {
               </BreadcrumbItem>
 
               <BreadcrumbItem>
-                <BreadcrumbLink href="/ItemListContainer">
+                <BreadcrumbLink href="/Productos" >
                   Ofertas
                 </BreadcrumbLink>
               </BreadcrumbItem>
-
+              
               <BreadcrumbItem>
                 <BreadcrumbLink href="/Oferts1">Super Ofertas</BreadcrumbLink>
               </BreadcrumbItem>
