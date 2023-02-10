@@ -1,18 +1,41 @@
 import React from "react";
-import { Box, Button } from "@chakra-ui/react";
+import {
+  Text,
+  ButtonGroup,
+  IconButton,
+  Center,
+} from "@chakra-ui/react";
 import { useState } from "react";
+import { AddIcon, MinusIcon } from "@chakra-ui/icons";
 
-const ItemCounter = () => {
+const ItemCounter = ({stock}) => {
   const [value, setValue] = useState(0);
+
+  const onAdd = () => {
+    setValue(value + 1);
+  };
+
+  const onMin = () => {
+    setValue(value - 1);
+  };
 
   return (
     <>
-      <Button onClick={() => setValue(value - 1)}>-</Button>
-      <Box as="span" w="200px" mx="24px">
-        {value}
-      </Box>
-      <Button onClick={() => setValue(value + 1)}>+</Button>
-      {/* <IconButton onClick={() => setSumar(0)}>Reset</IconButton> */}
+      <ButtonGroup size="sm" isAttached variant="outline">
+        {value < 1 ? (
+          <IconButton icon={<MinusIcon />} isDisabled />
+        ) : (
+          <IconButton icon={<MinusIcon />} onClick={onMin} />
+        )}
+        <Center w="50px" h="30px">
+          <Text as="b">{value}</Text>
+        </Center>
+        {value < stock ? (
+          <IconButton icon={<AddIcon />} onClick={onAdd} />
+        ) : (
+          <IconButton icon={<AddIcon />} isDisabled />
+        )}
+      </ButtonGroup>
     </>
   );
 };

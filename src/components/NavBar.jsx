@@ -32,10 +32,7 @@ const NavBar = () => {
             <Breadcrumb>
               <BreadcrumbItem>
                 <BreadcrumbLink
-                  href="/Productos"
-                  fontFamily="monospace"
-                  fontSize="lg"
-                  letterSpacing={2}
+                  href="/productos"
                 >
                   Ofertas
                 </BreadcrumbLink>
@@ -44,9 +41,6 @@ const NavBar = () => {
               <BreadcrumbItem>
                 <BreadcrumbLink
                   href="/Oferts1"
-                  fontFamily="monospace"
-                  fontSize="lg"
-                  letterSpacing={2}
                 >
                   Super Ofertas
                 </BreadcrumbLink>
@@ -55,9 +49,6 @@ const NavBar = () => {
               <BreadcrumbItem>
                 <BreadcrumbLink
                   href="/Oferts2"
-                  fontFamily="monospace"
-                  fontSize="lg"
-                  letterSpacing={2}
                 >
                   Mega Ofertas
                 </BreadcrumbLink>

@@ -13,8 +13,8 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Home greeting="Principal" />} />
 
-        <Route exact path="/Productos" element={<ItemListContainer />} />
-        <Route exact path="/Categoria/:category" element={<ItemListContainer />} />
+        <Route exact path="/productos" element={<ItemListContainer />} />
+        <Route exact path="/categoria/:category" element={<ItemListContainer />} />
         <Route exact path="/item/:id" element={<ItemDetailContainer />} />
 
         <Route
