@@ -6,7 +6,7 @@ const CartWidget = () => {
   return (
     <>
       <FaShoppingCart style={{ fontSize: "35px" }} />
-      <Badge borderRadius="5"pos="absolute" right="1" top="12">8</Badge>
+      <Badge borderRadius="5" pos="absolute" right="3" top="12">8</Badge>
     </>
   );
 };

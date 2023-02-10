@@ -1,43 +1,71 @@
 import { Container, Box, Flex, Spacer, Heading } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from "@chakra-ui/react";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  Image,
+} from "@chakra-ui/react";
 import CartWidget from "./CartWidget";
-import Modals from "../others/Modals";
 
 const NavBar = () => {
   return (
     <>
-      <Container maxW="100%" bg="blue.100" color="#262626">
+      <Container maxW="100%" bg="white.100" color="#fff">
+        This is the Box
+      </Container>
+      <Container maxW="100%" bg="pink.100" color="#262626">
         <Flex minWidth="max-content" alignItems="center" gap="2">
-          <Box p="2">
-            <Heading mb={4}>
-              <Link to="/">Don Baratón</Link>
-            </Heading>
-          </Box>
+          <Link to="/">
+            <Image
+              borderRadius="full"
+              boxSize="90px"
+              src="https://images.vexels.com/media/users/3/145753/isolated/lists/cc87af32e3beef17b5e349cec667bda5-bolsa-de-dinero-de-captura.png"
+              alt="Don Baratón"
+            ></Image>
+          </Link>
+          <Heading mb={4} fontFamily="cursive">
+            Don Baratón
+          </Heading>
           <Spacer />
           <Box>
             <Breadcrumb>
               <BreadcrumbItem>
-                <BreadcrumbLink href="/">Principal</BreadcrumbLink>
-              </BreadcrumbItem>
-
-              <BreadcrumbItem>
-                <BreadcrumbLink href="/Productos" >
+                <BreadcrumbLink
+                  href="/Productos"
+                  fontFamily="monospace"
+                  fontSize="lg"
+                  letterSpacing={2}
+                >
                   Ofertas
                 </BreadcrumbLink>
               </BreadcrumbItem>
-              
+
               <BreadcrumbItem>
-                <BreadcrumbLink href="/Oferts1">Super Ofertas</BreadcrumbLink>
+                <BreadcrumbLink
+                  href="/Oferts1"
+                  fontFamily="monospace"
+                  fontSize="lg"
+                  letterSpacing={2}
+                >
+                  Super Ofertas
+                </BreadcrumbLink>
               </BreadcrumbItem>
 
               <BreadcrumbItem>
-                <BreadcrumbLink href="/Oferts2">Mega Ofertas</BreadcrumbLink>
+                <BreadcrumbLink
+                  href="/Oferts2"
+                  fontFamily="monospace"
+                  fontSize="lg"
+                  letterSpacing={2}
+                >
+                  Mega Ofertas
+                </BreadcrumbLink>
               </BreadcrumbItem>
             </Breadcrumb>
           </Box>
           <Spacer />
-          <Box>
+          <Box p="2">
             <CartWidget />
           </Box>
         </Flex>

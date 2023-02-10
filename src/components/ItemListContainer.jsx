@@ -1,300 +1,303 @@
+import { useParams, NavLink } from "react-router-dom";
+import { useState } from "react";
 import {
-  Card,
-  Stack,
-  Heading,
-  Text,
-  CardBody,
-  CardFooter,
-  Button,
-  Image,
   Flex,
+  Container,
   Tabs,
   TabList,
-  TabPanels,
-  TabPanel,
   Tab,
-  Container,
-  SimpleGrid,
-  CardHeader,
-  useDisclosure,
-  Center,
+  TabPanel,
+  TabPanels,
 } from "@chakra-ui/react";
-import { Link, NavLink } from "react-router-dom";
-import { useState } from "react";
 import data from "../others/data";
+import ItemList from "./ItemList";
 
 const ItemListContainer = () => {
-  const { isOpen, onToggle, onClose } = useDisclosure();
   const [value, setValue] = useState(0);
 
-  const category = ["Todas", "Comedor", "Oficina", "Sala", "Cocina"][value];
-  const categories = ["Todas", "Comedor", "Oficina", "Sala", "Cocina"];
-  console.log();
+  const getData = () => {
+    new Promise((resolve, reject) => {
+      if (data.length === 0) {
+        reject(new Error("No hay datos"));
+      }
+      setTimeout(() => {
+        resolve(data);
+      }, 2000);
+    });
+  };
 
-  return (
-    <>
-      <Flex m={50}>
-        <Container maxW="xlg">
-          <Tabs
-            onChange={(val) => setValue(val)}
-            align="end"
-            variant="enclosed"
-          >
-            <TabList>
-              {categories.map((cat, ind) => (
-                <NavLink to={`/Categoria/${cat}`}>
-                  <Tab
-                    _selected={{ color: "white", bg: "blue.500" }}
-                    key={{ ind }}
-                  >
-                    {cat}
+  async function fetchingData() {
+    try {
+      const dataFetch = await getData();
+    } catch (err) {
+      //console.log(err);
+    }
+  }
+
+  fetchingData();
+
+  let filtro;
+  if (value === 0) {
+    return (
+      <>
+        <Flex m={50}>
+          <Container maxW="xlg">
+            <Tabs
+              onChange={() => setValue(value)}
+              align="end"
+              variant="enclosed"
+            >
+              <TabList>
+                <NavLink to={`/Categoria/Todas}`}>
+                  <Tab _selected={{ color: "white", bg: "blue.500" }}>
+                    Todas
                   </Tab>
                 </NavLink>
-              ))}
-            </TabList>
-            <TabPanels>
-              <TabPanel>
-                <SimpleGrid
-                  spacing={3}
-                  templateColumns="repeat(auto-fill, minmax(400px, 1fr))"
+                <NavLink to={`/Categoria/Comedor}`}>
+                  <Tab _selected={{ color: "white", bg: "blue.500" }}>
+                    Comedor
+                  </Tab>
+                </NavLink>
+                <NavLink to={`/Categoria/Oficina}`}>
+                  <Tab _selected={{ color: "white", bg: "blue.500" }}>
+                    Oficina
+                  </Tab>
+                </NavLink>
+                <NavLink to={`/Categoria/Sala}`}>
+                  <Tab _selected={{ color: "white", bg: "blue.500" }}>Sala</Tab>
+                </NavLink>
+                <NavLink to={`/Categoria/Cocina}`}>
+                  <Tab _selected={{ color: "white", bg: "blue.500" }}>
+                    Cocina
+                  </Tab>
+                </NavLink>
+              </TabList>
+              <TabPanels>
+                <TabPanel>
+                  <ItemList data={data} />
+                </TabPanel>
+              </TabPanels>
+            </Tabs>
+          </Container>
+        </Flex>
+      </>
+    );
+  } else {
+    switch (value) {
+      case 1:
+        filtro = data.filter((cat) => cat.category === "Comedor");
+        return (
+          <>
+            <Flex m={50}>
+              <Container maxW="xlg">
+                <Tabs
+                  onChange={(val) => setValue(val)}
+                  align="end"
+                  variant="enclosed"
                 >
-                  {data.map((item) => {
-                    return (
-                      <Card
-                        m={3}
-                        direction={{ base: "column", sm: "row" }}
-                        overflow="hidden"
-                        variant="outline"
-                        maxW="400px"
-                        key={item.id}
-                      >
-                        <Image
-                          objectFit="cover"
-                          maxW={{ base: "90%", sm: "200px" }}
-                          src={item.img}
-                          alt="Comedor de Madera"
-                        />
-
-                        <Stack>
-                          <CardBody>
-                            <Heading size="md">{item.head}</Heading>
-
-                            <Text as="i" fontSize="md" color="red" py="2">
-                              Stock: {item.stock}
-                            </Text>
-                          </CardBody>
-
-                          <CardFooter>
-                            <NavLink to={`/ItemDetailContainer/${item.id}`}>
-                              <Button
-                                variant="solid"
-                                colorScheme="blue"
-                                onClick={onToggle}
-                              >
-                                Detalles
-                              </Button>
-                            </NavLink>
-                          </CardFooter>
-                        </Stack>
-                      </Card>
-                    );
-                  })}
-                </SimpleGrid>
-              </TabPanel>
-              <TabPanel>
-                <Flex>
-                  {data
-                    .filter((x) => x.category === category)
-                    .map((item) => {
-                      return (
-                        <Card
-                          m={3}
-                          direction={{ base: "column", sm: "row" }}
-                          overflow="hidden"
-                          variant="outline"
-                          maxW="400px"
-                          key={item.id}
-                        >
-                          <Image
-                            objectFit="cover"
-                            maxW={{ base: "90%", sm: "200px" }}
-                            src={item.img}
-                            alt="Comedor de Madera"
-                          />
-
-                          <Stack>
-                            <CardBody>
-                              <Heading size="md">{item.head}</Heading>
-
-                              <Text as="i" fontSize="md" color="red" py="2">
-                                Stock: {item.stock}
-                              </Text>
-                            </CardBody>
-
-                            <CardFooter>
-                              <NavLink to={`/ItemDetailContainer/${item.id}`}>
-                                <Button
-                                  variant="solid"
-                                  colorScheme="blue"
-                                  onClick={onToggle}
-                                >
-                                  Detalles
-                                </Button>
-                              </NavLink>
-                            </CardFooter>
-                          </Stack>
-                        </Card>
-                      );
-                    })}
-                </Flex>
-              </TabPanel>
-              <TabPanel>
-                <Flex>
-                  {data
-                    .filter((x) => x.category === category)
-                    .map((item) => {
-                      return (
-                        <Card
-                          m={3}
-                          direction={{ base: "column", sm: "row" }}
-                          overflow="hidden"
-                          variant="outline"
-                          maxW="400px"
-                          key={item.id}
-                        >
-                          <Image
-                            objectFit="cover"
-                            maxW={{ base: "90%", sm: "200px" }}
-                            src={item.img}
-                            alt="Comedor de Madera"
-                          />
-
-                          <Stack>
-                            <CardBody>
-                              <Heading size="md">{item.head}</Heading>
-
-                              <Text as="i" fontSize="md" color="red" py="2">
-                                Stock: {item.stock}
-                              </Text>
-                            </CardBody>
-
-                            <CardFooter>
-                              <NavLink to={`/ItemDetailContainer/${item.id}`}>
-                                <Button
-                                  variant="solid"
-                                  colorScheme="blue"
-                                  onClick={onToggle}
-                                >
-                                  Detalles
-                                </Button>
-                              </NavLink>
-                            </CardFooter>
-                          </Stack>
-                        </Card>
-                      );
-                    })}
-                </Flex>
-              </TabPanel>
-              <TabPanel>
-                <Flex>
-                  {data
-                    .filter((x) => x.category === category)
-                    .map((item) => {
-                      return (
-                        <Card
-                          m={3}
-                          direction={{ base: "column", sm: "row" }}
-                          overflow="hidden"
-                          variant="outline"
-                          maxW="400px"
-                          key={item.id}
-                        >
-                          <Image
-                            objectFit="cover"
-                            maxW={{ base: "90%", sm: "200px" }}
-                            src={item.img}
-                            alt="Comedor de Madera"
-                          />
-
-                          <Stack>
-                            <CardBody>
-                              <Heading size="md">{item.head}</Heading>
-
-                              <Text as="i" fontSize="md" color="red" py="2">
-                                Stock: {item.stock}
-                              </Text>
-                            </CardBody>
-
-                            <CardFooter>
-                              <NavLink to={`/ItemDetailContainer/${item.id}`}>
-                                <Button
-                                  variant="solid"
-                                  colorScheme="blue"
-                                  onClick={onToggle}
-                                >
-                                  Detalles
-                                </Button>
-                              </NavLink>
-                            </CardFooter>
-                          </Stack>
-                        </Card>
-                      );
-                    })}
-                </Flex>
-              </TabPanel>
-              <TabPanel>
-                <Flex>
-                  {data
-                    .filter((x) => x.category === category)
-                    .map((item) => {
-                      return (
-                        <Card
-                          m={3}
-                          direction={{ base: "column", sm: "row" }}
-                          overflow="hidden"
-                          variant="outline"
-                          maxW="400px"
-                          key={item.id}
-                        >
-                          <Image
-                            objectFit="cover"
-                            maxW={{ base: "90%", sm: "200px" }}
-                            src={item.img}
-                            alt="Comedor de Madera"
-                          />
-
-                          <Stack>
-                            <CardBody>
-                              <Heading size="md">{item.head}</Heading>
-
-                              <Text as="i" fontSize="md" color="red" py="2">
-                                Stock: {item.stock}
-                              </Text>
-                            </CardBody>
-
-                            <CardFooter>
-                              <NavLink to={`/ItemDetailContainer/${item.id}`}>
-                                <Button
-                                  variant="solid"
-                                  colorScheme="blue"
-                                  onClick={onToggle}
-                                >
-                                  Detalles
-                                </Button>
-                              </NavLink>
-                            </CardFooter>
-                          </Stack>
-                        </Card>
-                      );
-                    })}
-                </Flex>
-              </TabPanel>
-            </TabPanels>
-          </Tabs>
-        </Container>
-      </Flex>
-    </>
-  );
+                  <TabList>
+                    <NavLink to={`/Categoria/Todas}`}>
+                      <Tab _selected={{ color: "white", bg: "blue.500" }}>
+                        Todas
+                      </Tab>
+                    </NavLink>
+                    <NavLink to={`/Categoria/Comedor}`}>
+                      <Tab _selected={{ color: "white", bg: "blue.500" }}>
+                        Comedor
+                      </Tab>
+                    </NavLink>
+                    <NavLink to={`/Categoria/Oficina}`}>
+                      <Tab _selected={{ color: "white", bg: "blue.500" }}>
+                        Oficina
+                      </Tab>
+                    </NavLink>
+                    <NavLink to={`/Categoria/Sala}`}>
+                      <Tab _selected={{ color: "white", bg: "blue.500" }}>
+                        Sala
+                      </Tab>
+                    </NavLink>
+                    <NavLink to={`/Categoria/Cocina}`}>
+                      <Tab _selected={{ color: "white", bg: "blue.500" }}>
+                        Cocina
+                      </Tab>
+                    </NavLink>
+                  </TabList>
+                  <TabPanels>
+                    <TabPanel>
+                      {filtro ? (
+                        <ItemList data={filtro} />
+                      ) : (
+                        <ItemList data={data} />
+                      )}
+                    </TabPanel>
+                  </TabPanels>
+                </Tabs>
+              </Container>
+            </Flex>
+          </>
+        );
+        break;
+      case 2:
+        filtro = data.filter((cat) => cat.category === "Oficina");
+        return (
+          <>
+            <Flex m={50}>
+              <Container maxW="xlg">
+                <Tabs
+                  onChange={() => setValue(value + 2)}
+                  align="end"
+                  variant="enclosed"
+                >
+                  <TabList>
+                    <NavLink to={`/Categoria/Todas}`}>
+                      <Tab _selected={{ color: "white", bg: "blue.500" }}>
+                        Todas
+                      </Tab>
+                    </NavLink>
+                    <NavLink to={`/Categoria/Comedor}`}>
+                      <Tab _selected={{ color: "white", bg: "blue.500" }}>
+                        Comedor
+                      </Tab>
+                    </NavLink>
+                    <NavLink to={`/Categoria/Oficina}`}>
+                      <Tab _selected={{ color: "white", bg: "blue.500" }}>
+                        Oficina
+                      </Tab>
+                    </NavLink>
+                    <NavLink to={`/Categoria/Sala}`}>
+                      <Tab _selected={{ color: "white", bg: "blue.500" }}>
+                        Sala
+                      </Tab>
+                    </NavLink>
+                    <NavLink to={`/Categoria/Cocina}`}>
+                      <Tab _selected={{ color: "white", bg: "blue.500" }}>
+                        Cocina
+                      </Tab>
+                    </NavLink>
+                  </TabList>
+                  <TabPanels>
+                    <TabPanel>
+                      {filtro ? (
+                        <ItemList data={filtro} />
+                      ) : (
+                        <ItemList data={data} />
+                      )}
+                    </TabPanel>
+                  </TabPanels>
+                </Tabs>
+              </Container>
+            </Flex>
+          </>
+        );
+        break;
+      case 3:
+        filtro = data.filter((cat) => cat.category === "Sala");
+        return (
+          <>
+            <Flex m={50}>
+              <Container maxW="xlg">
+                <Tabs
+                  onChange={(val) => setValue(val)}
+                  align="end"
+                  variant="enclosed"
+                >
+                  <TabList>
+                    <NavLink to={`/Categoria/Todas}`}>
+                      <Tab _selected={{ color: "white", bg: "blue.500" }}>
+                        Todas
+                      </Tab>
+                    </NavLink>
+                    <NavLink to={`/Categoria/Comedor}`}>
+                      <Tab _selected={{ color: "white", bg: "blue.500" }}>
+                        Comedor
+                      </Tab>
+                    </NavLink>
+                    <NavLink to={`/Categoria/Oficina}`}>
+                      <Tab _selected={{ color: "white", bg: "blue.500" }}>
+                        Oficina
+                      </Tab>
+                    </NavLink>
+                    <NavLink to={`/Categoria/Sala}`}>
+                      <Tab _selected={{ color: "white", bg: "blue.500" }}>
+                        Sala
+                      </Tab>
+                    </NavLink>
+                    <NavLink to={`/Categoria/Cocina}`}>
+                      <Tab _selected={{ color: "white", bg: "blue.500" }}>
+                        Cocina
+                      </Tab>
+                    </NavLink>
+                  </TabList>
+                  <TabPanels>
+                    <TabPanel>
+                      {filtro ? (
+                        <ItemList data={filtro} />
+                      ) : (
+                        <ItemList data={data} />
+                      )}
+                    </TabPanel>
+                  </TabPanels>
+                </Tabs>
+              </Container>
+            </Flex>
+          </>
+        );
+        break;
+      case 4:
+        filtro = data.filter((cat) => cat.category === "Cocina");
+        return (
+          <>
+            <Flex m={50}>
+              <Container maxW="xlg">
+                <Tabs
+                  onChange={(val) => setValue(val)}
+                  align="end"
+                  variant="enclosed"
+                >
+                  <TabList>
+                    <NavLink to={`/Categoria/Todas}`}>
+                      <Tab _selected={{ color: "white", bg: "blue.500" }}>
+                        Todas
+                      </Tab>
+                    </NavLink>
+                    <NavLink to={`/Categoria/Comedor}`}>
+                      <Tab _selected={{ color: "white", bg: "blue.500" }}>
+                        Comedor
+                      </Tab>
+                    </NavLink>
+                    <NavLink to={`/Categoria/Oficina}`}>
+                      <Tab _selected={{ color: "white", bg: "blue.500" }}>
+                        Oficina
+                      </Tab>
+                    </NavLink>
+                    <NavLink to={`/Categoria/Sala}`}>
+                      <Tab _selected={{ color: "white", bg: "blue.500" }}>
+                        Sala
+                      </Tab>
+                    </NavLink>
+                    <NavLink to={`/Categoria/Cocina}`}>
+                      <Tab _selected={{ color: "white", bg: "blue.500" }}>
+                        Cocina
+                      </Tab>
+                    </NavLink>
+                  </TabList>
+                  <TabPanels>
+                    <TabPanel>
+                      {filtro ? (
+                        <ItemList data={filtro} />
+                      ) : (
+                        <ItemList data={data} />
+                      )}
+                    </TabPanel>
+                  </TabPanels>
+                </Tabs>
+              </Container>
+            </Flex>
+          </>
+        );
+        break;
+    }
+  }
 };
 
 export default ItemListContainer;
