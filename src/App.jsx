@@ -1,9 +1,9 @@
 import ItemListContainer from "./components/ItemListContainer";
+import ItemDetailContainer from "./components/ItemDetailContainer";
 import Home from "./components/Home";
 import NavBar from "./components/NavBar";
 import Oferts1 from "./components/Oferts1";
 import Oferts2 from "./components/Oferts2";
-import ItemDetailContainer from "./components/ItemDetailContainer";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {

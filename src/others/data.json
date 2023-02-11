@@ -2,7 +2,7 @@
   {
     "id": 1,
     "img": "https://www.coppel.com/images/catalog/pm/4092963-1.jpg",
-    "head": "Sala esquinera San Telmo (2 Pzas)",
+    "head": "Sala esquinera (2 Pzas)",
     "desc": "Convierte en un espacio de confort y descanso esta sala esquinera San Telmo. ¡Te dará la bienvenida cada día al llegar a casa! Su estructura está fabricada en madera de pino y tapizada en linato color gris. Cuenta con cojines en respaldo y asientos. Además, por su diseño contemporáneo, te permite optimizar al máximo el espacio disponible. Sus patas frontales de madera torneadas ofrecen balance y resistencia. Es ideal para pasar un rato agradable con la familia o recibir visitas, así que agrégala a tu carrito de compras. *Los abonos quincenales, el plazo del crédito y el pago inicial, pueden variar según el margen de crédito y el historial de pago de cada cliente.",
     "stock": 20,
     "cost": 10500,
@@ -29,7 +29,7 @@
   {
     "id": 4,
     "img": "https://www.gaiadesign.com.mx/media/catalog/product/cache/28cb47c806b746a91bc25b380c9673fa/e/s/escritorio_vallarta_negro_still1_v2.jpg",
-    "head": "Escritorio Vallarta, solo mesa",
+    "head": "Escritorio Vallarta",
     "desc": "Escritorio ideal para el hogar con diseño moderno y elegante, es perfecto para laptop y papeleria varia, con gran espacio.",
     "stock": 10,
     "cost": 850,
@@ -47,7 +47,7 @@
   {
     "id": 6,
     "img": "https://media.istockphoto.com/id/1329937916/es/foto/interior-del-comedor-dom%C3%A9stico-escandinavo.jpg?b=1&s=170667a&w=0&k=20&c=O4uAYX7vxXniFKjtFg5r_qNZ99YqoA2qJqSflQvq65I=",
-    "head": "Comedor de Madera (6 Pers)",
+    "head": "Comedor para (6 Pers)",
     "desc": "Este comedor de estilo contemporáneo, está fabricado con cubierta de madera industrial y acabado fino, ideal para una familia de seis personas con asientos tapizados en vinil, muy bien acojinados con hule espuma, va perfecto con la decoración moderna de tu hogar.",
     "stock": 70,
     "cost": 4500,
@@ -65,7 +65,7 @@
   {
     "id": 8,
     "img": "https://mueblesmaderaviva.com/432-thickbox_default/comedor-valencia.jpg",
-    "head": "Modelo Valencia (4 Pers)",
+    "head": "Mdlo. Valencia (4 Pers)",
     "desc": "Este comedor de estilo contemporáneo, está fabricado con cubierta de madera industrial y acabado fino, ideal para una familia de seis personas con asientos tapizados en vinil, muy bien acojinados con hule espuma, va perfecto con la decoración moderna de tu hogar.",
     "stock": 70,
     "cost": 4500,
@@ -74,7 +74,7 @@
   {
     "id": 9,
     "img": "https://m.media-amazon.com/images/I/71Vl8RSbxrL._AC_SX679_.jpg",
-    "head": "Estatntería para especias 3 niveles",
+    "head": "Estatntería 3 niveles",
     "desc": "Organizador especias encimera independiente de 2 niveles para asegurar que se adapte a la mayoría de las especias, frascos, latas, botes, etc. Además, el diseño de gancho le permite mantener utensilios, cuchara y otros artículos esenciales en un solo lugar. Este estante de especias puede sentarse justo al lado de la estufa y hacer que encontrar el condimento adecuado sea mucho más fácil.",
     "stock": 250,
     "cost": 720,
@@ -83,7 +83,7 @@
   {
     "id": 10,
     "img": "https://m.media-amazon.com/images/I/717eQrqkraL._AC_SX522_.jpg",
-    "head": "Fregadero de cascada, grifo extraible",
+    "head": "Fregadero de cascada",
     "desc": "Fregadero Nano, juego de drenaje de control de contador, grifo extraíble de lluvia Flying, lavabo Nano en lavabo, tabla de cortar, cesta de drenaje triangular, grifo de purificación de agua, lavadora de taza de refuerzo, válvula de ángulo caliente y fría, tubo de entrada de agua caliente y fría.",
     "stock": 70,
     "cost": 3000,

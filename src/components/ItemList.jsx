@@ -5,14 +5,14 @@ const ItemList = ({ data }) => {
     <>
       {data.map((item) => {
         return (
-          <>
+          <div key={item.id} >
             <Item
               id={item.id}
               img={item.img}
               head={item.head}
               stock={item.stock}
             />
-          </>
+          </div>
         );
       })}
     </>

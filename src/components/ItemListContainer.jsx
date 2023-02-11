@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { useParams, NavLink } from "react-router-dom";
 import {
   Flex,
   Container,
@@ -13,6 +13,8 @@ import Data from "../others/data";
 import ItemList from "./ItemList";
 
 const ItemListContainer = () => {
+  const { category } = useParams();
+
   const getData = () => {
     new Promise((resolve, reject) => {
       if (Data.length === 0) {
@@ -28,13 +30,14 @@ const ItemListContainer = () => {
     try {
       const dataFetch = await getData();
     } catch (err) {
-      //console.log(err);
+      console.log(err);
     }
   }
 
   fetchingData();
 
   const categories = ["Todas", "Comedor", "Oficina", "Sala", "Cocina"];
+  const filtro = Data.filter((c) => c.category === category);
 
   return (
     <>
@@ -59,32 +62,23 @@ const ItemListContainer = () => {
               {categories.map((cat, ind) => {
                 if (cat === "Todas") {
                   return (
-                    <>
+                    <div key={ind}>
                       <TabPanel key={ind}>
                         <SimpleGrid templateColumns="repeat(auto-fill, minmax(400px, 3fr))">
-                          <ItemList key={ind} data={Data} />
+                          <ItemList data={Data} />
                         </SimpleGrid>
                       </TabPanel>
-                    </>
+                    </div>
                   );
                 } else {
-                  const filtro = Data.filter((c) => c.category === cat);
                   return (
-                    <>
-                      {filtro ? (
-                        <TabPanel key={ind}>
-                          <SimpleGrid templateColumns="repeat(auto-fill, minmax(400px, 3fr))">
-                            <ItemList key={ind} data={filtro} />
-                          </SimpleGrid>
-                        </TabPanel>
-                      ) : (
-                        <TabPanel key={ind}>
-                          <SimpleGrid templateColumns="repeat(auto-fill, minmax(400px, 3fr))">
-                            <ItemList key={ind} data={Data} />
-                          </SimpleGrid>
-                        </TabPanel>
-                      )}
-                    </>
+                    <div key={ind}>
+                      <TabPanel key={ind}>
+                        <SimpleGrid templateColumns="repeat(auto-fill, minmax(400px, 3fr))">
+                          <ItemList data={filtro} />
+                        </SimpleGrid>
+                      </TabPanel>
+                    </div>
                   );
                 }
               })}

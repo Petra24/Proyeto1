@@ -25,7 +25,7 @@ const ItemDetail = ({ data }) => {
     <>
       {filtro.map((d) => {
         return (
-          <>
+          <div key={id}>
             <Center ml={60} mr={60} mt={35}>
               <Card
                 direction={{ base: "column", sm: "row" }}
@@ -76,7 +76,7 @@ const ItemDetail = ({ data }) => {
                 </Stack>
               </Card>
             </Center>
-          </>
+          </div>
         );
       })}
     </>

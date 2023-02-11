@@ -22,11 +22,14 @@ const Item = ({ id, head, img, stock }) => {
         overflow="hidden"
         variant="outline"
         maxW="400px"
+        maxH="200px"
         key={id}
       >
         <Image
           objectFit="cover"
-          maxW={{ base: "90%", sm: "200px" }}
+          //maxW={{ base: "90%", sm: "200px" }}
+          w="200px"
+          h="200px"
           src={img}
           alt={head}
         />
