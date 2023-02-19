@@ -9,41 +9,47 @@ import {
   TabPanels,
   SimpleGrid,
 } from "@chakra-ui/react";
-import Data from "../others/data";
 import ItemList from "./ItemList";
+import { collection, getDocs, getFirestore } from "firebase/firestore";
+import { useEffect, useState } from "react";
 
 const ItemListContainer = () => {
   const { category } = useParams();
+  const [productos, setProductos] = useState([]);
+  const [categorias, setCategorias] = useState([]);
 
-  const getData = () => {
-    new Promise((resolve, reject) => {
-      if (Data.length === 0) {
-        reject(new Error("No hay datos"));
-      }
-      setTimeout(() => {
-        resolve(Data);
-      }, 2000);
+  useEffect(() => {
+    const prods = getFirestore();
+    const cats = getFirestore();
+    const itemCollectionP = collection(prods, "productos");
+    const itemCollectionC = collection(cats, "categoria");
+    getDocs(itemCollectionP).then((snapshot) => {
+      const docs = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setProductos(docs);
     });
-  };
+    getDocs(itemCollectionC).then((snapshot) => {
+      const docs = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setCategorias(docs);
+    });
+  }, []);
 
-  async function fetchingData() {
-    try {
-      const dataFetch = await getData();
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
-  fetchingData();
-
-  const categories = ["Todas", "Comedor", "Oficina", "Sala", "Cocina"];
-  const filtro = Data.filter((c) => c.category === category);
+  const categories = categorias
+    .map((x) => x.nombre)
+    .sort()
+    .reverse();
+  const filtro = productos.filter((c) => c.category === category);
 
   return (
     <>
       <Flex m={50}>
         <Container maxW="xlg">
-          <Tabs align="end" variant="enclosed">
+          <Tabs align="center" variant="enclosed">
             <TabList>
               {categories.map((cat, ind) => (
                 <Tab
@@ -65,7 +71,7 @@ const ItemListContainer = () => {
                     <div key={ind}>
                       <TabPanel key={ind}>
                         <SimpleGrid templateColumns="repeat(auto-fill, minmax(400px, 3fr))">
-                          <ItemList data={Data} />
+                          <ItemList productos={productos} />
                         </SimpleGrid>
                       </TabPanel>
                     </div>
@@ -75,7 +81,7 @@ const ItemListContainer = () => {
                     <div key={ind}>
                       <TabPanel key={ind}>
                         <SimpleGrid templateColumns="repeat(auto-fill, minmax(400px, 3fr))">
-                          <ItemList data={filtro} />
+                          <ItemList productos={filtro} />
                         </SimpleGrid>
                       </TabPanel>
                     </div>

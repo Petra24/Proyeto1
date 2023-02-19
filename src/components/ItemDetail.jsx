@@ -13,17 +13,20 @@ import {
   Container,
 } from "@chakra-ui/react";
 import ItemCounter from "./ItemCounter";
-
 import { useParams, NavLink } from "react-router-dom";
+import { useContext } from "react";
+import { CounterContext } from "../context/CounterContex";
 
-const ItemDetail = ({ data }) => {
+const ItemDetail = ({ productos }) => {
+  const [counter] = useContext(CounterContext);
   const { id } = useParams();
   const format = (val) => `$` + val;
 
-  const filtro = data.filter((data) => data.id === parseInt(id));
+  const filtro = productos.filter((data) => data.id === id);
   return (
     <>
       {filtro.map((d) => {
+        const resStock = d.stock - counter;
         return (
           <div key={id}>
             <Center ml={60} mr={60} mt={35}>
@@ -61,17 +64,29 @@ const ItemDetail = ({ data }) => {
                     <Container>
                       <Center>
                         <Text color="red.600" fontSize="md" m={5}>
-                          Stock: {d.stock}
+                          Stock: {resStock}
                         </Text>
                         <ItemCounter stock={d.stock} />
                       </Center>
                     </Container>
-                      <Button as={NavLink} to={`/item/comprar`} flex="1" variant="solid" colorScheme="blue">
-                        Comprar
-                      </Button>
-                      <Button as={NavLink} to={`/item/carrito`} flex="1" variant="ghost" colorScheme="blue">
-                        Agregar a carrito
-                      </Button>
+                    <Button
+                      as={NavLink}
+                      to={`/buys`}
+                      flex="1"
+                      variant="solid"
+                      colorScheme="blue"
+                    >
+                      Comprar
+                    </Button>
+                    <Button
+                      as={NavLink}
+                      to={`/`}
+                      flex="1"
+                      variant="ghost"
+                      colorScheme="blue"
+                    >
+                      Agregar a carrito
+                    </Button>
                   </CardFooter>
                 </Stack>
               </Card>

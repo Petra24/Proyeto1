@@ -7,7 +7,6 @@ import {
   CardFooter,
   Button,
   Image,
-  SimpleGrid,
   useDisclosure,
 } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
@@ -27,7 +26,6 @@ const Item = ({ id, head, img, stock }) => {
       >
         <Image
           objectFit="cover"
-          //maxW={{ base: "90%", sm: "200px" }}
           w="200px"
           h="200px"
           src={img}
