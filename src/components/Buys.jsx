@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import {
   Stack,
@@ -32,201 +32,264 @@ import {
   RadioGroup,
   Divider,
   SimpleGrid,
+  Container,
+  FormErrorMessage,
+  Image,
+  CardFooter,
+  Spacer,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { ArrowBackIcon, AddIcon } from "@chakra-ui/icons";
 
 const Buys = () => {
+  const [input, setInput] = useState("");
+
+  const handleInputChange = (e) => setInput(e.target.value);
+
+  const isError = input === "";
+
+  const format = (val) => `$` + val;
+
   return (
     <>
-      {/* <Center>
-        <Flex minWidth="max-content" gap="2">
-          <Box p="2" marginTop={50} marginEnd={5}>
-            <Popover>
-              <PopoverTrigger>
-                <Button leftIcon={<ArrowBackIcon />}></Button>
-              </PopoverTrigger>
-              <Portal>
-                <PopoverContent>
-                  <PopoverArrow />
-                  <PopoverBody></PopoverBody>
-                  <PopoverFooter
-                    border="0"
-                    display="flex"
-                    justifyContent="flex-end"
-                  >
-                    <ButtonGroup size="sm">
-                      <Link to="/productos">
-                        <Button colorScheme="blue">Button</Button>
-                      </Link>
-                      <Link to="/">
-                        <Button colorScheme="blue">Button</Button>
-                      </Link>
-                    </ButtonGroup>
-                  </PopoverFooter>
-                </PopoverContent>
-              </Portal>
-            </Popover>
-          </Box>
-
-          <Box p="2" marginTop={50}>
-            <Stack spacing="4">
-              <Card size="lg">
+      <SimpleGrid
+        spacing={4}
+        templateColumns="repeat(auto-fill, minmax(40%, 1fr))"
+        m="50px"
+      >
+        <Card>
+          <CardBody>
+            <Text fontSize="3xl">Información de contacto</Text>
+            <FormControl isInvalid={isError}>
+              <FormLabel>Correo Electornico</FormLabel>
+              <Input
+                type="email"
+                placeholder="Jhon_Done@mail.com"
+                value={input}
+                onChange={handleInputChange}
+              />
+              <FormHelperText>Nunca compartiremos tu correo</FormHelperText>
+              {!isError ? (
+                <FormHelperText>
+                  Enter the email you'd like to receive the newsletter on.
+                </FormHelperText>
+              ) : (
+                <FormErrorMessage>Email is required.</FormErrorMessage>
+              )}
+              <Divider />
+              <Text fontSize="3xl">Detalles de pago</Text>
+              <FormLabel>Numero de Tarjeta</FormLabel>
+              <Input
+                type="text"
+                placeholder="4556-6665-8545-6525"
+                value={input}
+                onChange={handleInputChange}
+              />
+              {!isError ? (
+                <FormHelperText>
+                  Enter the email you'd like to receive the newsletter on.
+                </FormHelperText>
+              ) : (
+                <FormErrorMessage>Email is required.</FormErrorMessage>
+              )}
+              <Flex minWidth="max-content" alignItems="center" gap="5">
+                <Box p="2">
+                  <FormLabel>Fecha de expiracion (MM/YY)</FormLabel>
+                  <Input
+                    type="dateTime"
+                    placeholder="11/27"
+                    value={input}
+                    onChange={handleInputChange}
+                  />
+                  {!isError ? (
+                    <FormHelperText>
+                      Enter the email you'd like to receive the newsletter on.
+                    </FormHelperText>
+                  ) : (
+                    <FormErrorMessage>Email is required.</FormErrorMessage>
+                  )}
+                </Box>
+                <Box p="2">
+                  <FormLabel>CVC</FormLabel>
+                  <Input
+                    type="text"
+                    placeholder="111"
+                    value={input}
+                    onChange={handleInputChange}
+                  />
+                  {!isError ? (
+                    <FormHelperText>
+                      Enter the email you'd like to receive the newsletter on.
+                    </FormHelperText>
+                  ) : (
+                    <FormErrorMessage>Email is required.</FormErrorMessage>
+                  )}
+                </Box>
+              </Flex>
+              <Divider />
+              <Text fontSize="3xl">Dirección de entrega</Text>
+              <FormLabel>Dirección</FormLabel>
+              <Input
+                type="text"
+                placeholder="Tu dirección"
+                value={input}
+                onChange={handleInputChange}
+              />
+              {!isError ? (
+                <FormHelperText>
+                  Enter the email you'd like to receive the newsletter on.
+                </FormHelperText>
+              ) : (
+                <FormErrorMessage>Email is required.</FormErrorMessage>
+              )}
+              <Flex minWidth="max-content" alignItems="center" gap="3">
+                <Box p="2">
+                  <FormLabel>Ciudad</FormLabel>
+                  <Input
+                    type="text"
+                    placeholder="Ciudad"
+                    value={input}
+                    onChange={handleInputChange}
+                  />
+                  {!isError ? (
+                    <FormHelperText>
+                      Enter the email you'd like to receive the newsletter on.
+                    </FormHelperText>
+                  ) : (
+                    <FormErrorMessage>Email is required.</FormErrorMessage>
+                  )}
+                </Box>
+                <Box p="2">
+                  <FormLabel>Estado/Provincia</FormLabel>
+                  <Input
+                    type="text"
+                    placeholder="Estado"
+                    value={input}
+                    onChange={handleInputChange}
+                  />
+                  {!isError ? (
+                    <FormHelperText>
+                      Enter the email you'd like to receive the newsletter on.
+                    </FormHelperText>
+                  ) : (
+                    <FormErrorMessage>Email is required.</FormErrorMessage>
+                  )}
+                </Box>
+                <Box p="2">
+                  <FormLabel>Codigo Postal</FormLabel>
+                  <Input
+                    type="number"
+                    placeholder="C.P."
+                    value={input}
+                    onChange={handleInputChange}
+                  />
+                  {!isError ? (
+                    <FormHelperText>
+                      Enter the email you'd like to receive the newsletter on.
+                    </FormHelperText>
+                  ) : (
+                    <FormErrorMessage>Email is required.</FormErrorMessage>
+                  )}
+                </Box>
+              </Flex>
+              <Button colorScheme="teal" float="lef" m="auto">
+                Pagar
+              </Button>
+            </FormControl>
+          </CardBody>
+        </Card>
+        <Card bg="#3e4757">
+          <CardBody>
+            <Text color="white">Importe:</Text>
+            <Text fontSize="3xl" color="white">
+              {format(1500)}
+            </Text>
+            <Card direction={{ base: "column", sm: "row" }} bg="transparent">
+              <Image
+                objectFit="cover"
+                maxW={{ base: "100%", sm: "100px" }}
+                src="https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60"
+                alt="Caffe Latte"
+              />
+              <Stack>
                 <CardBody>
-                  <Accordion>
-                    <AccordionItem>
-                      <h2>
-                        <AccordionButton>
-                          <Box as="span" flex="1" textAlign="left">
-                            1. Seleccione dirección de envio
-                          </Box>
-                          <AccordionIcon />
-                        </AccordionButton>
-                      </h2>
-                      <AccordionPanel pb={4}>
-                        <FormControl>
-                          <RadioGroup defaultValue="1">
-                            <Stack>
-                              <Radio value="1" colorScheme="green">
-                                Radio
-                              </Radio>
-                              <Radio value="2" colorScheme="green">
-                                Radio
-                              </Radio>
-                              <Radio value="3" colorScheme="green">
-                                Radio
-                              </Radio>
-                              <Link to="/address">
-                                <Text color="#00b4d8" fontSize="sm">
-                                  <AddIcon
-                                    boxSize={3}
-                                    color="#00b4d8"
-                                    marginEnd={2}
-                                  />
-                                  Agregar Dirección
-                                </Text>
-                              </Link>
-                            </Stack>
-                          </RadioGroup>
-                        </FormControl>
-                      </AccordionPanel>
-                    </AccordionItem>
-
-                    <AccordionItem>
-                      <h2>
-                        <AccordionButton>
-                          <Box as="span" flex="1" textAlign="left">
-                            2. Seleciona un método de pago
-                          </Box>
-                          <AccordionIcon />
-                        </AccordionButton>
-                      </h2>
-                      <AccordionPanel pb={4}>
-                        <FormControl>
-                          <RadioGroup defaultValue="1">
-                            <Stack>
-                              <Radio value="1" colorScheme="green">
-                                Radio
-                              </Radio>
-                              <Radio value="2" colorScheme="green">
-                                Radio
-                              </Radio>
-                              <Radio value="3" colorScheme="green">
-                                Radio
-                              </Radio>
-                              <Link to="/address">
-                                <Text color="#00b4d8" fontSize="sm">
-                                  <AddIcon
-                                    boxSize={3}
-                                    color="#00b4d8"
-                                    marginEnd={2}
-                                  />
-                                  Agregar Tarjeta de Credito o Debito
-                                </Text>
-                              </Link>
-                            </Stack>
-                            <Divider />
-                            <h2>Otros métodos de pago</h2>
-                            <Link to="/otherPay">
-                              <Text color="#00b4d8" fontSize="sm">
-                                <AddIcon
-                                  boxSize={3}
-                                  color="#00b4d8"
-                                  marginEnd={2}
-                                />
-                                Agregar nuevo vale de despensa
-                              </Text>
-                            </Link>
-                          </RadioGroup>
-                        </FormControl>
-                      </AccordionPanel>
-                    </AccordionItem>
-
-                    <AccordionItem>
-                      <h2>
-                        <AccordionButton>
-                          <Box as="span" flex="1" textAlign="left">
-                            3. Revisar artículos y envío
-                          </Box>
-                          <AccordionIcon />
-                        </AccordionButton>
-                      </h2>
-                      <AccordionPanel pb={4}>
-                        <Stack spacing="4">
-                          {["sm", "sm", "sm"].map((size) => (
-                            <Card key={size} size={size}>
-                              <CardHeader>
-                                <Heading size="sm"> {size}</Heading>
-                              </CardHeader>
-                              <CardBody>
-                                <Text>size = {size}</Text>
-                              </CardBody>
-                            </Card>
-                          ))}
-                        </Stack>
-                      </AccordionPanel>
-                    </AccordionItem>
-                  </Accordion>
+                  <Heading size="md" color="white">
+                    Nombre Producto
+                  </Heading>
+                  <Flex minWidth="max-content" alignItems="center" gap="120">
+                    <Box p="2">
+                      <Text py="2" color="white">
+                        color y tamaño
+                      </Text>
+                    </Box>
+                    <Spacer />
+                    <Box p="2">
+                      <Text py="2" color="white">
+                        {format(500)}
+                      </Text>
+                    </Box>
+                  </Flex>
                 </CardBody>
-              </Card>
-            </Stack>
-          </Box>
-
-          <Box p="2" marginTop={50}>
-            <Stack spacing="4">
-              <Card size="sm">
-                <CardHeader>
-                  <Heading size="md"> sm</Heading>
-                </CardHeader>
-                <CardBody>
-                  <Text>size = sm</Text>
-                </CardBody>
-              </Card>
-            </Stack>
-          </Box>
-        </Flex>
-      </Center> */}
-      <Center>
-        <SimpleGrid
-          spacing={4}
-          templateColumns="repeat(auto-fill, minmax(200px, 1fr))"
-        >
-          <Card >
-            <CardBody>
-              <Text>
-                View a summary of all your customers over the last month.
-              </Text>
-            </CardBody>
-          </Card>
-          <Card >
-            <CardBody>
-              <Text>
-                View a summary of all your customers over the last month.
-              </Text>
-            </CardBody>
-          </Card>
-        </SimpleGrid>
-      </Center>
+              </Stack>
+            </Card>
+            <Flex minWidth="max-content" alignItems="center" gap="2">
+              <Box p="2">
+                <Text py="2" color="white">
+                  Subtotal
+                </Text>
+              </Box>
+              <Spacer />
+              <Box p="2">
+                <Text py="2" color="white">
+                  {format(500)}
+                </Text>
+              </Box>
+            </Flex>
+            <Divider />
+            <Flex minWidth="max-content" alignItems="center" gap="2">
+              <Box p="2">
+                <Text py="2" color="white">
+                  Costo de Envio
+                </Text>
+              </Box>
+              <Spacer />
+              <Box p="2">
+                <Text py="2" color="white">
+                  {format(500)}
+                </Text>
+              </Box>
+            </Flex>
+            <Divider />
+            <Flex minWidth="max-content" alignItems="center" gap="2">
+              <Box p="2">
+                <Text py="2" color="white">
+                  IVA
+                </Text>
+              </Box>
+              <Spacer />
+              <Box p="2">
+                <Text py="2" color="white">
+                  {format(500)}
+                </Text>
+              </Box>
+            </Flex>
+            <Divider />
+            <Flex minWidth="max-content" alignItems="center" gap="2">
+              <Box p="2">
+                <Text py="2" fontSize="3xl"  color="white">
+                  Total
+                </Text>
+              </Box>
+              <Spacer />
+              <Box p="2">
+                <Text py="2" fontSize="3xl"  color="white">
+                  {format(500)}
+                </Text>
+              </Box>
+            </Flex>
+          </CardBody>
+        </Card>
+      </SimpleGrid>
     </>
   );
 };
