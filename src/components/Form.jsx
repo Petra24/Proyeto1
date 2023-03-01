@@ -11,6 +11,8 @@ import {
   VStack,
   Select,
 } from "@chakra-ui/react";
+import moment from "moment";
+import MaskedInput from "react-text-mask";
 import { useFormik } from "formik";
 import { collection, addDoc, getFirestore } from "firebase/firestore";
 
@@ -18,6 +20,20 @@ const Form = () => {
   const [orderId, setOrderId] = useState(null);
   const db = getFirestore();
   const ordersCollection = collection(db, "orden");
+  const formatCardNumber = (cardNumber) => {
+    // amex format 4 6 5 digitos
+    return cardNumber.replace(/ /g, "").match(/\b(\d{4})(\d{6})(\d{5})\b/)
+      ? (cardNumber = cardNumber
+          .replace(/\W/gi, "")
+          .replace(/\b(\d{4})(\d{6})(\d{5})\b/, "$1 $2 $3")
+          .trim())
+      : // visa, master format
+        (cardNumber = cardNumber
+          .replace(/\W/gi, "")
+          .replace(/(.{4})/g, "$1 ")
+          .trim());
+  };
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -41,17 +57,20 @@ const Form = () => {
         errores.tarjeta = "Ingrese un número de tarjeta";
       }
 
+      const regex = /^(0[1-9]|1[0-2])\/\d{2}$/; // formato MM/YY
       if (!valores.fecha) {
         errores.fecha = "Ingrese una fecha de expiración";
-      } else if (
-        !/^(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])$/.test(valores.fecha)
-      ) {
-        const añoActual = new Date().getFullYear();
-        const [mes, año] = valores.fecha.split("/");
-        if (mes < 1 || mes > 12 || año < añoActual || año > 50) {
-          errores.fecha = "No es mes ó año correcto";
-        }
+      } else if (!regex.test(valores.fecha)) {
+        return "Formato de fecha inválido (MM/YY)";
       }
+
+      /* else if (!moment(valores.fecha, "MM/YY").isValid())
+        errores.fecha = "Formato de fecha invalido";
+
+      const expiryDate = moment(valores.fecha, "MM/YY");
+      if (expiryDate.isBefore(moment(), "month")) {
+        errores.fecha = "La tarjeta ha expirado";
+      } */
 
       if (!valores.cvv) {
         errores.cvv = "Ingrese un cvv";
@@ -99,13 +118,28 @@ const Form = () => {
 
   const handleCreditCardNumberChange = (event, setFieldValue) => {
     const value = event.target.value;
-    let formattedValue = value.replace(/\s+/g, "-").replace(/[^0-9]/gi, "");
+    let formattedValue = value.replace(/\s+/g, "").replace(/[^0-9]/gi, "");
     if (formattedValue.length > 0) {
       formattedValue = formattedValue
         .match(new RegExp(".{1,4}", "g"))
         .join(" ");
     }
     setFieldValue("creditCardNumber", formattedValue);
+  };
+
+  const handleDateExpiry = (event, setFieldValue) => {
+    const value = event.target.value;
+    const cleadedValue = value.replace(/[^0-9]/g, "");
+    let formattedDateValue = "";
+    if (cleadedValue.length > 2) {
+      formattedDateValue = `${cleadedValue.slice(0, 2)}/${cleadedValue.slice(
+        2
+      )}`;
+    } else {
+      formattedDateValue = cleadedValue;
+    }
+
+    setFieldValue("expirationDate", formattedDateValue);
   };
 
   return (
@@ -141,6 +175,11 @@ const Form = () => {
               variant="filled"
               placeholder="1111-1111-1111-1111"
               maxLength="19"
+              value={
+                !formik.values.tarjeta
+                  ? ""
+                  : formatCardNumber(String(formik.values.tarjeta))
+              }
               onChange={(event) => {
                 formik.handleChange(event);
                 handleCreditCardNumberChange(event, formik.setFieldValue);
@@ -153,16 +192,20 @@ const Form = () => {
               isInvalid={!!formik.errors.fecha && formik.touched.fecha}
             >
               <FormLabel htmlFor="fecha">Fecha de expiracion (MM/YY)</FormLabel>
-              <Input
+              <MaskedInput
                 as={Input}
                 id="fecha"
                 name="fecha"
-                type="dateTime"
+                type="text"
                 variant="filled"
                 placeholder="11/27"
                 width="18rem"
+                mask={[/\d/, /\d/, "/", /\d/, /\d/]}
                 maxLength={5}
+                value={formik.values.fecha}
+                onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
+                guide={false}
               />
               <FormErrorMessage>{formik.errors.fecha}</FormErrorMessage>
             </FormControl>
