@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   Stack,
   Text,
@@ -11,12 +11,12 @@ import {
   VStack,
   Select,
 } from "@chakra-ui/react";
-import moment from "moment";
-import MaskedInput from "react-text-mask";
 import { useFormik } from "formik";
 import { collection, addDoc, getFirestore } from "firebase/firestore";
+import { CartContext } from "../context/CartContex";
 
 const Form = () => {
+  const [cart, setCart] = useContext(CartContext);
   const [orderId, setOrderId] = useState(null);
   const db = getFirestore();
   const ordersCollection = collection(db, "orden");
@@ -57,20 +57,9 @@ const Form = () => {
         errores.tarjeta = "Ingrese un número de tarjeta";
       }
 
-      const regex = /^(0[1-9]|1[0-2])\/\d{2}$/; // formato MM/YY
       if (!valores.fecha) {
         errores.fecha = "Ingrese una fecha de expiración";
-      } else if (!regex.test(valores.fecha)) {
-        return "Formato de fecha inválido (MM/YY)";
       }
-
-      /* else if (!moment(valores.fecha, "MM/YY").isValid())
-        errores.fecha = "Formato de fecha invalido";
-
-      const expiryDate = moment(valores.fecha, "MM/YY");
-      if (expiryDate.isBefore(moment(), "month")) {
-        errores.fecha = "La tarjeta ha expirado";
-      } */
 
       if (!valores.cvv) {
         errores.cvv = "Ingrese un cvv";
@@ -128,18 +117,9 @@ const Form = () => {
   };
 
   const handleDateExpiry = (event, setFieldValue) => {
-    const value = event.target.value;
-    const cleadedValue = value.replace(/[^0-9]/g, "");
-    let formattedDateValue = "";
-    if (cleadedValue.length > 2) {
-      formattedDateValue = `${cleadedValue.slice(0, 2)}/${cleadedValue.slice(
-        2
-      )}`;
-    } else {
-      formattedDateValue = cleadedValue;
-    }
-
-    setFieldValue("expirationDate", formattedDateValue);
+    const value = event.target.value.replace(/\D/g, "").substring(0, 4);
+    const cleadedValue = value.replace(/(\d{2})(\d{2})/, "$1/$2");
+    setFieldValue("expirationDate", cleadedValue);
   };
 
   return (
@@ -180,10 +160,7 @@ const Form = () => {
                   ? ""
                   : formatCardNumber(String(formik.values.tarjeta))
               }
-              onChange={(event) => {
-                formik.handleChange(event);
-                handleCreditCardNumberChange(event, formik.setFieldValue);
-              }}
+              onChange={handleCreditCardNumberChange}
             />
             <FormErrorMessage>{formik.errors.tarjeta}</FormErrorMessage>
           </FormControl>
@@ -192,7 +169,7 @@ const Form = () => {
               isInvalid={!!formik.errors.fecha && formik.touched.fecha}
             >
               <FormLabel htmlFor="fecha">Fecha de expiracion (MM/YY)</FormLabel>
-              <MaskedInput
+              <Input
                 as={Input}
                 id="fecha"
                 name="fecha"
@@ -200,12 +177,9 @@ const Form = () => {
                 variant="filled"
                 placeholder="11/27"
                 width="18rem"
-                mask={[/\d/, /\d/, "/", /\d/, /\d/]}
                 maxLength={5}
                 value={formik.values.fecha}
-                onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
-                guide={false}
               />
               <FormErrorMessage>{formik.errors.fecha}</FormErrorMessage>
             </FormControl>

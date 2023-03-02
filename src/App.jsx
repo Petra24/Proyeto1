@@ -1,20 +1,19 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ItemDetailContainer from "./components/ItemDetailContainer";
 import Home from "./components/Home";
 import NavBar from "./components/NavBar";
 import Oferts1 from "./components/Oferts1";
 import Oferts2 from "./components/Oferts2";
-import Buys from "./components/Buys"
+import Buys from "./components/Buys";
 import ItemListContainer from "./components/ItemListContainer";
-//import { CartContext } from "./context/CartContex";
-import { CounterContext } from "./context/CounterContex";
+import { CartContext } from "./context/CartContex";
+import Cart from "./components/Cart";
 
 function App() {
-  const [counter, setCounter] = useState(0);
+  const [cart, setCart] = useState([]);
   return (
-    //<CartContext.Provider>
-    <CounterContext.Provider value={[counter, setCounter]}>
+    <CartContext.Provider value={[cart, setCart]}>
       <BrowserRouter>
         <NavBar />
         <Routes>
@@ -27,12 +26,10 @@ function App() {
             element={<ItemListContainer />}
           />
           <Route exact path="/item/:id" element={<ItemDetailContainer />} />
-          
-          <Route
-            exact
-            path="/buys"
-            element={<Buys/>}
-          />
+
+          <Route exact path="/buys" element={<Buys />} />
+
+          <Route exact path="/cart" element={<Cart />} />
 
           <Route
             exact
@@ -47,8 +44,7 @@ function App() {
           <Route exact render={() => <h1>Not found!</h1>} />
         </Routes>
       </BrowserRouter>
-    </CounterContext.Provider>
-    //</CartContext.Provider>
+    </CartContext.Provider>
   );
 }
 

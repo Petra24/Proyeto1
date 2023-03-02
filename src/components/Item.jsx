@@ -7,12 +7,10 @@ import {
   CardFooter,
   Button,
   Image,
-  useDisclosure,
 } from "@chakra-ui/react";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Item = ({ id, head, img, stock }) => {
-  const { isOpen, onToggle, isClose } = useDisclosure;
   return (
     <>
       <Card
@@ -24,13 +22,7 @@ const Item = ({ id, head, img, stock }) => {
         maxH="200px"
         key={id}
       >
-        <Image
-          objectFit="cover"
-          w="200px"
-          h="200px"
-          src={img}
-          alt={head}
-        />
+        <Image objectFit="cover" w="200px" h="200px" src={img} alt={head} />
 
         <Stack>
           <CardBody>
@@ -42,11 +34,11 @@ const Item = ({ id, head, img, stock }) => {
           </CardBody>
 
           <CardFooter>
-            <NavLink to={`/item/${id}`}>
-              <Button variant="solid" colorScheme="blue" onClick={onToggle}>
+            <Link to={`/item/${id}`}>
+              <Button variant="solid" colorScheme="blue">
                 Detalles
               </Button>
-            </NavLink>
+            </Link>
           </CardFooter>
         </Stack>
       </Card>

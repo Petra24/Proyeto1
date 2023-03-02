@@ -18,18 +18,18 @@ import {
   Flex,
 } from "@chakra-ui/react";
 import { useState, useContext } from "react";
-import { CartContext } from "../contexts/ShoppingCartContext";
+import { CartContext } from "../context/CartContex";
 
 const Cart = () => {
   const [cart, setCart] = useContext(CartContext);
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
-
+  console.log(cart);
   const handleSubmit = (e) => {
-    console.log(e);
+    //console.log(e);
     e.preventDefault();
-    console.log(userName);
-    console.log(userEmail);
+    //console.log(userName);
+    //console.log(userEmail);
     alert("Formulario enviado");
   };
 

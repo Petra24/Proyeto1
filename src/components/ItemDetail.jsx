@@ -13,20 +13,33 @@ import {
   Container,
 } from "@chakra-ui/react";
 import ItemCounter from "./ItemCounter";
+import { useEffect, useState } from "react";
 import { useParams, NavLink } from "react-router-dom";
-import { useContext } from "react";
-import { CounterContext } from "../context/CounterContex";
+import { doc, getDoc, getFirestore } from "firebase/firestore";
 
 const ItemDetail = ({ productos }) => {
-  const [counter] = useContext(CounterContext);
   const { id } = useParams();
+  const [pcto, setPcto] = useState([]);
   const format = (val) => `$` + val;
+
+  useEffect(() => {
+    const db = getFirestore();
+
+    const productosRef = doc(db, "productos", `${id}`);
+
+    getDoc(productosRef).then((snapshot) => {
+      if (snapshot.exists()) {
+        setPcto(snapshot.data());
+      } else {
+        console.log("No existe");
+      }
+    });
+  }, []);
 
   const filtro = productos.filter((data) => data.id === id);
   return (
     <>
       {filtro.map((d) => {
-        const resStock = d.stock - counter;
         return (
           <div key={id}>
             <Center ml={60} mr={60} mt={35}>
@@ -52,42 +65,14 @@ const ItemDetail = ({ productos }) => {
                     </Text>
                   </CardBody>
                   <Divider />
-                  <CardFooter
-                    justify="space-between"
-                    flexWrap="wrap"
-                    sx={{
-                      "& > button": {
-                        minW: "136px",
-                      },
-                    }}
-                  >
-                    <Container>
-                      <Center>
-                        <Text color="red.600" fontSize="md" m={5}>
-                          Stock: {resStock}
-                        </Text>
-                        <ItemCounter stock={d.stock} />
-                      </Center>
-                    </Container>
-                    <Button
-                      as={NavLink}
-                      to={`/buys`}
-                      flex="1"
-                      variant="solid"
-                      colorScheme="blue"
-                    >
-                      Comprar
-                    </Button>
-                    <Button
-                      as={NavLink}
-                      to={`/`}
-                      flex="1"
-                      variant="ghost"
-                      colorScheme="blue"
-                    >
-                      Agregar a carrito
-                    </Button>
-                  </CardFooter>
+                  <ItemCounter
+                    stock={d.stock}
+                    id={d.id}
+                    cost={d.cost}
+                    head={d.head}
+                    img={d.img}
+                    resume={d.resume}
+                  />
                 </Stack>
               </Card>
             </Center>
