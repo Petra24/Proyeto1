@@ -13,7 +13,7 @@ const CartWidget = () => {
   }, 0);
   return (
     <>
-      <NavLink to={"/cart"}>
+      <NavLink to={"/buys"}>
         <FaShoppingCart style={{ fontSize: "35px" }} />
         <Badge borderRadius="5" pos="absolute" right="3" top="12">
           {quantity}

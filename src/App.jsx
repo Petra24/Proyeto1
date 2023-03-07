@@ -8,7 +8,6 @@ import Oferts2 from "./components/Oferts2";
 import Buys from "./components/Buys";
 import ItemListContainer from "./components/ItemListContainer";
 import { CartContext } from "./context/CartContex";
-import Cart from "./components/Cart";
 
 function App() {
   const [cart, setCart] = useState([]);
@@ -28,8 +27,6 @@ function App() {
           <Route exact path="/item/:id" element={<ItemDetailContainer />} />
 
           <Route exact path="/buys" element={<Buys />} />
-
-          <Route exact path="/cart" element={<Cart />} />
 
           <Route
             exact

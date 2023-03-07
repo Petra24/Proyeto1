@@ -19,6 +19,10 @@ import {
   Spacer,
   ListItem,
   UnorderedList,
+  Grid,
+  GridItem,
+  Center,
+  useToast,
 } from "@chakra-ui/react";
 import { useFormik } from "formik";
 import { collection, addDoc, getFirestore } from "firebase/firestore";
@@ -28,6 +32,7 @@ import { useContext, useState } from "react";
 const Buys = () => {
   const [cart, setCart] = useContext(CartContext);
   const [orderId, setOrderId] = useState(null);
+  const toast = useToast();
   const db = getFirestore();
   const ordersCollection = collection(db, "orden");
   //formulario
@@ -56,7 +61,7 @@ const Buys = () => {
       estado: "",
       cp: "",
     },
-    validate: (valores) => {
+    validate: async (valores) => {
       let errores = {};
       if (!valores.email) {
         errores.email = "Ingrese correo";
@@ -96,23 +101,20 @@ const Buys = () => {
 
       return errores;
     },
-    onSubmit: (buyer, cart, setSubmitting) => {
+    onSubmit: (buyer) => {
       const order = {
         buyer,
-        items: [
-          { ...cart },
-          (importe = importe),
-          (iva = iva),
-          (envio = envio),
-          (cantTotal = importe + iva + envio),
-        ],
+        cart,
+        importe: importe,
+        iva: iva,
+        envio: envio,
+        cantTotal: importe + iva + envio,
       };
       addDoc(ordersCollection, order).then(({ id }) => setOrderId(id));
-      setSubmitting(false);
     },
   });
 
-  const handleCreditCardNumberChange = (event, setFieldValue) => {
+  const handleCreditCardNumberChange = (event) => {
     const value = event.target.value;
     let formattedValue = value.replace(/\s+/g, "").replace(/[^0-9]/gi, "");
     if (formattedValue.length > 0) {
@@ -120,20 +122,18 @@ const Buys = () => {
         .match(new RegExp(".{1,4}", "g"))
         .join(" ");
     }
-    setFieldValue("creditCardNumber", formattedValue);
   };
-
-  /* const handleDateExpiry = (event, setFieldValue) => {
-    const value = event.target.value.replace(/\D/g, "").substring(0, 4);
-    const cleadedValue = value.replace(/(\d{2})(\d{2})/, "$1/$2");
-    setFieldValue("expirationDate", cleadedValue);
-  }; */
 
   //productos
   const format = (val) => `$` + val;
   const deleteId = cart.map((item) => {
     return item.id;
   });
+
+  const deleteToCart = (id) => {
+    const newCart = cart.filter((item) => item.id !== id);
+    setCart(newCart);
+  };
 
   const valor = cart.map((x) => {
     return x.cost;
@@ -198,7 +198,7 @@ const Buys = () => {
                     as={Input}
                     id="tarjeta"
                     name="tarjeta"
-                    type="number"
+                    type="text"
                     variant="filled"
                     placeholder="1111-1111-1111-1111"
                     maxLength="19"
@@ -207,7 +207,10 @@ const Buys = () => {
                         ? ""
                         : formatCardNumber(String(formik.values.tarjeta))
                     }
-                    onChange={handleCreditCardNumberChange}
+                    onChange={(event) => {
+                      formik.handleChange(event);
+                      handleCreditCardNumberChange(event);
+                    }}
                   />
                   <FormErrorMessage>{formik.errors.tarjeta}</FormErrorMessage>
                 </FormControl>
@@ -334,7 +337,15 @@ const Buys = () => {
                 <Button
                   type="submit"
                   colorScheme="teal"
-                  disabled={formik.isSubmitting}
+                  onClick={() =>
+                    toast({
+                      title: "Orden Realizada con Exito",
+                      position: "top-right",
+                      isClosable: true,
+                      status: "success",
+                      duration: 9000,
+                    })
+                  }
                 >
                   Pagar
                 </Button>
@@ -344,9 +355,11 @@ const Buys = () => {
         </Card>
         <Card bg="#3e4757">
           <CardBody>
-            <Text color="white">Importe:</Text>;
-            {
-              <Text fontSize="3xl" color="white">
+            <Flex>
+              <Text color="white" fontSize={25}>
+                Importe: &nbsp;
+              </Text>
+              <Text color="white" fontSize={25}>
                 {format(
                   importe.toLocaleString("es-Es", {
                     style: "currency",
@@ -354,49 +367,47 @@ const Buys = () => {
                   })
                 )}
               </Text>
-            }
+            </Flex>
+            <br />
             {cart.map((item) => {
               return (
                 <div key={item.id}>
-                  <Stack direction="row" p={4}>
-                    <Card
-                      direction={{ base: "column", sm: "row" }}
-                      bg="none"
-                      w="100%"
-                      border="none"
-                    >
-                      <Image
-                        objectFit="cover"
-                        maxW={{ base: "100%", sm: "100px" }}
-                        src={item.img}
-                        alt={item.head}
-                      />
-                      <Stack>
-                        <CardBody>
-                          <Heading size="md" color="white">
-                            {item.head}
-                          </Heading>
-                          <UnorderedList>
-                            {item.resume.map((item, index) => (
-                              <ListItem key={index} color="white">
-                                {item}
-                              </ListItem>
-                            ))}
-                          </UnorderedList>
-                          <Text align="right" color="white">
-                            Cantidad: {item.quantity}
-                          </Text>
-                        </CardBody>
-                      </Stack>
-                    </Card>
-                    <Divider orientation="vertical" />
-                    <Card
-                      direction={{ base: "column", sm: "row" }}
-                      bg="transparent"
-                    >
-                      <CardBody>
+                  <Grid templateColumns="repeat(3, 1fr)" gap={5}>
+                    <GridItem w="100%">
+                      <Center>
+                        <Image
+                          objectFit="cover"
+                          maxW={{ base: "100%", sm: "100px" }}
+                          src={item.img}
+                          alt={item.head}
+                          borderRadius="lg"
+                        />
+                      </Center>
+                    </GridItem>
+                    <GridItem w="120%">
+                      <Heading
+                        size="sm"
+                        color="white"
+                        fontSize={14}
+                        textTransform="uppercase"
+                      >
+                        {item.head}
+                      </Heading>
+                      <UnorderedList>
+                        {item.resume.map((item, index) => (
+                          <ListItem key={index} color="white" fontSize={12}>
+                            {item}
+                          </ListItem>
+                        ))}
+                      </UnorderedList>
+                      <Text align="right" color="white" fontSize={12}>
+                        Cantidad: {item.quantity}
+                      </Text>
+                    </GridItem>
+                    <GridItem w="100%">
+                      <Flex justifyContent="right">
                         <Text
-                          m={5}
+                          m={4}
                           fontSize="1.1em"
                           color="white"
                           align="center"
@@ -411,17 +422,23 @@ const Buys = () => {
                             )
                           )}
                         </Text>
+                      </Flex>
+                      <Flex justifyContent="right">
                         <Button
+                          al
                           ml="4em"
                           size="xs"
                           colorScheme="red"
-                          onClick={() => console.log("Eliminando")}
+                          onClick={
+                            (() => deleteToCart(item.id))
+                          }
                         >
                           Quitar
                         </Button>
-                      </CardBody>
-                    </Card>
-                  </Stack>
+                      </Flex>
+                    </GridItem>
+                  </Grid>
+                  <br />
                 </div>
               );
             })}
