@@ -28,10 +28,12 @@ import { useFormik } from "formik";
 import { collection, addDoc, getFirestore } from "firebase/firestore";
 import { CartContext } from "../context/CartContex";
 import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Buys = () => {
   const [cart, setCart] = useContext(CartContext);
   const [orderId, setOrderId] = useState(null);
+  let history = useNavigate();
   const toast = useToast();
   const db = getFirestore();
   const ordersCollection = collection(db, "orden");
@@ -109,8 +111,18 @@ const Buys = () => {
         iva: iva,
         envio: envio,
         cantTotal: importe + iva + envio,
+        date: new Date()
       };
       addDoc(ordersCollection, order).then(({ id }) => setOrderId(id));
+      toast({
+        title: "Orden Realizada con Exito",
+        position: "top-right",
+        isClosable: true,
+        status: "success",
+        duration: 9000,
+      });
+      history('/')
+      setCart([])
     },
   });
 
@@ -334,19 +346,7 @@ const Buys = () => {
                     <FormErrorMessage>{formik.errors.cp}</FormErrorMessage>
                   </FormControl>
                 </Stack>
-                <Button
-                  type="submit"
-                  colorScheme="teal"
-                  onClick={() =>
-                    toast({
-                      title: "Orden Realizada con Exito",
-                      position: "top-right",
-                      isClosable: true,
-                      status: "success",
-                      duration: 9000,
-                    })
-                  }
-                >
+                <Button type="submit" colorScheme="teal">
                   Pagar
                 </Button>
               </VStack>
@@ -429,9 +429,7 @@ const Buys = () => {
                           ml="4em"
                           size="xs"
                           colorScheme="red"
-                          onClick={
-                            (() => deleteToCart(item.id))
-                          }
+                          onClick={() => deleteToCart(item.id)}
                         >
                           Quitar
                         </Button>
